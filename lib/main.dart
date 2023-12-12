@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(useMaterial3: true,colorScheme: ColorScheme.fromSeed(seedColor: CupertinoColors.systemGreen)),
+      debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       home: const MainPage(),
     );

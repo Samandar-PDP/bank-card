@@ -1,4 +1,4 @@
-class Card {
+class BankCard {
   String? id;
   String? createdAt;
   String? ownerName;
@@ -7,7 +7,7 @@ class Card {
   String? color;
   String? bankName;
 
-  Card.fromJson(Map<String, dynamic> json)
+  BankCard.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         createdAt = json['createdAt'],
         ownerName = json['ownerName'],
