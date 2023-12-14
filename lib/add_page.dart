@@ -1,4 +1,6 @@
 import 'package:bank_cards/api_service.dart';
+import 'package:bank_cards/bank_card.dart';
+import 'package:bank_cards/main_page.dart';
 import 'package:bank_cards/number_formatter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,12 +36,36 @@ class _AddPageState extends State<AddPage> {
     return Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
   }
 
+  void _addNewCard() {
+    setState(() {
+      _isLoading = true;
+    });
+    _apiService.createBankCard(
+      BankCard(
+        '',
+        DateTime.now().toString(),
+        _name.text,
+        _expire.text,
+        _cardNumber.text,
+        "",
+        _bankName.text
+      )
+    ).then((value) {
+      if(value == true) {
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MainPage()), (route) => false);
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Created"))
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Add New Card"),actions: [
         _isLoading ? const CircularProgressIndicator() :
-        IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.check_mark))
+        IconButton(onPressed: _addNewCard, icon: const Icon(CupertinoIcons.check_mark))
       ]),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

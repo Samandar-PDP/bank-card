@@ -14,4 +14,12 @@ class ApiService {
     }
     return cardList;
   }
+  Future<bool> createBankCard(BankCard card) async {
+    final response = await http.post(Uri.parse('$baseUrl/cards'), body: card.toJson());
+    return response.statusCode == 201;
+  }
+  Future<bool> deleteCard(int id) async {
+    final response = await http.delete(Uri.parse('$baseUrl/cards/$id'));
+    return response.statusCode == 200;
+  }
 }
